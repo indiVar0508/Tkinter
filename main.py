@@ -58,11 +58,11 @@ class PageTwo(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        label = ttk.Label(self, text='PageTwo', font=LARGE_FONT)
+        label = tk.Label(self, text='PageTwo', font=LARGE_FONT)
         label.pack(pady=10, padx=10)
-        button1 = ttk.Button(self, text='Start', command=lambda: controller.show_grid(StartPage))
+        button1 = tk.Button(self, text='Start', command=lambda: controller.show_grid(StartPage))
         button1.pack()
-        button2 = ttk.Button(self, text='Back', command=lambda: controller.show_grid(PageOne))
+        button2 = tk.Button(self, text='Back', command=lambda: controller.show_grid(PageOne))
         button2.pack()
 
 app = SeaofBTCapp()

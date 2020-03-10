@@ -2,11 +2,30 @@ import matplotlib
 matplotlib.use('TkAgg')
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib.figure import  Figure
+import matplotlib.animation as animation
+from matplotlib import style
 
 import tkinter as tk
 from tkinter import ttk
 
+f = Figure(figsize=(5, 5), dpi=100)
+a = f.add_subplot(111)
+
 LARGE_FONT = ('Times New Roman', 12)
+style.use('ggplot')
+
+def animate(i):
+    filedata = open("sampleData.txt", 'r').read()
+    dataList = filedata.split('\n')
+    xlist, ylist = [], []
+    for eachLine in dataList:
+        if len(eachLine) > 1:
+            x, y = eachLine.split(',')
+            xlist.append(int(x))
+            ylist.append(int(y))
+    a.clear()
+    a.plot(xlist, ylist)
+
 class SeaofBTCapp(tk.Tk):
 
     def __init__(self, *args, **kwargs):
@@ -78,10 +97,7 @@ class PageThree(tk.Frame):
         button1 = tk.Button(self, text='Go Home', command=lambda: controller.show_grid(StartPage))
         button1.pack()
 
-        f = Figure(figsize=(5, 5), dpi=100)
-        a = f.add_subplot(111)
-
-        a.plot([1,2,3,4,5,6,7,8], [5,3,2,6,8,4,2,1])
+        # a.plot([1,2,3,4,5,6,7,8], [5,3,2,6,8,4,2,1])
 
         canvas = FigureCanvasTkAgg(f, self)
         canvas.draw()
@@ -92,10 +108,6 @@ class PageThree(tk.Frame):
         canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
 
-
-
-
-
-
 app = SeaofBTCapp()
+ani = animation.FuncAnimation(f, animate, interval=1000)
 app.mainloop()
